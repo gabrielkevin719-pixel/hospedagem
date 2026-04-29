@@ -30,7 +30,7 @@ export const Route = createFileRoute("/")({
         content:
           "KAROL G se move pelo mundo ao seu próprio ritmo, com os pés no chão e completamente em seu elemento. A Coleção Stanley 1913 x Karol G traz essa energia com um acabamento dourado premium. www.stanley1913.com.br",
       },
-      { property: "og:image", content: "/og-quencher-karolg.jpg" },
+      { property: "og:image", content: "https://hospedagem-sandy.vercel.app/og-quencher-karolg.jpg" },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: "Copo Quencher Karol G 1.18L Stanley 1913" },
@@ -44,7 +44,7 @@ export const Route = createFileRoute("/")({
         content:
           "Coleção Stanley 1913 x Karol G — acabamento dourado premium. Edição Limitada.",
       },
-      { name: "twitter:image", content: "/og-quencher-karolg.jpg" },
+      { name: "twitter:image", content: "https://hospedagem-sandy.vercel.app/og-quencher-karolg.jpg" },
     ],
     links: [{ rel: "canonical", href: "https://www.stanley1913.com.br/products/copo-quencher-karol-g-1-8l" }],
   }),
