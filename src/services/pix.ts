@@ -30,7 +30,7 @@ export async function createPixCharge(data: PixInput): Promise<PixResponse> {
       email: data.email,
       phone: (data.phone || "11999999999").replace(/\D/g, ""),
     },
-    items: {
+    item: {
       title: data.itemTitle,
       price: data.amount,
       quantity: 1,
