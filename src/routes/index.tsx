@@ -10,44 +10,6 @@ import { OfferStep } from "@/components/quiz/OfferStep";
 import { PixStep } from "@/components/quiz/PixStep";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Copo Quencher Karol G | 1.18L — Stanley 1913" },
-      {
-        name: "description",
-        content:
-          "KAROL G se move pelo mundo ao seu próprio ritmo, com os pés no chão e completamente em seu elemento. A Coleção Stanley 1913 x Karol G traz essa energia com um acabamento dourado premium. www.stanley1913.com.br",
-      },
-      { name: "author", content: "Stanley 1913" },
-      { name: "theme-color", content: "#2D3A30" },
-
-      // Open Graph (WhatsApp, Facebook, LinkedIn, Telegram)
-      { property: "og:type", content: "product" },
-      { property: "og:site_name", content: "Stanley 1913" },
-      { property: "og:title", content: "Copo Quencher Karol G | 1.18L" },
-      {
-        property: "og:description",
-        content:
-          "KAROL G se move pelo mundo ao seu próprio ritmo, com os pés no chão e completamente em seu elemento. A Coleção Stanley 1913 x Karol G traz essa energia com um acabamento dourado premium. www.stanley1913.com.br",
-      },
-      { property: "og:image", content: "https://hospedagem-sandy.vercel.app/og-quencher-karolg.jpg" },
-      { property: "og:image:width", content: "1200" },
-      { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "Copo Quencher Karol G 1.18L Stanley 1913" },
-      { property: "og:locale", content: "pt_BR" },
-
-      // Twitter / X
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Copo Quencher Karol G | 1.18L" },
-      {
-        name: "twitter:description",
-        content:
-          "Coleção Stanley 1913 x Karol G — acabamento dourado premium. Edição Limitada.",
-      },
-      { name: "twitter:image", content: "https://hospedagem-sandy.vercel.app/og-quencher-karolg.jpg" },
-    ],
-    links: [{ rel: "canonical", href: "https://www.stanley1913.com.br/products/copo-quencher-karol-g-1-8l" }],
-  }),
   component: QuizApp,
 });
 
