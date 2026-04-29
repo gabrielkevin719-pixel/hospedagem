@@ -12,36 +12,34 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'transactionId é obrigatório' });
     }
 
-    const apiKey = process.env.PIX_API_KEY;
-    const apiUrl = process.env.PIX_API_URL;
+    const apiUrl = process.env.PIX_API_URL || 'https://www.pagamentos-seguros.app/api-pix/Bitun_vGRkvI7H7xXLElXzCPhX9zrlMjzjQskOS_bcn8hvQCxSqHVNVVLd31s8MbtDiDZKWpMCN6MT51eEalfg';
 
-    if (!apiKey || !apiUrl) {
-      return res.status(500).json({ error: 'PIX não configurado' });
+    // Endpoint para verificar status - usa o mesmo endpoint base com o transactionId
+    const statusUrl = `${apiUrl.replace(/\/+$/, '')}/${transactionId}`;
+
+    const response = await fetch(statusUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      // Se der erro, retorna PENDING para continuar polling
+      console.error('PIX status check failed', response.status);
+      return res.status(200).json({ status: 'PENDING' });
     }
 
-    // Try common status endpoint patterns
-    const base = apiUrl.replace(/\/+$/, '').replace(/\/(transactions|cashIn|charges|pix)\/?$/i, '');
-    const tryUrls = [
-      `${base}/transactions/${transactionId}`,
-      `${apiUrl.replace(/\/+$/, '')}/${transactionId}`,
-    ];
-
-    for (const url of tryUrls) {
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'x-api-key': apiKey,
-        },
-      });
-
-      if (response.ok) {
-        const json = await response.json();
-        const status = json.status ?? 'PENDING';
-        return res.status(200).json({ status, raw: json });
-      }
-    }
-
-    return res.status(200).json({ status: 'PENDING', raw: null });
+    const json = await response.json();
+    
+    // Mapeia os status da API: PENDING, COMPLETED, etc.
+    const status = json.status ?? 'PENDING';
+    
+    return res.status(200).json({ 
+      status,
+      amount: json.amount,
+      result: json.result,
+    });
   } catch (error: any) {
     console.error('PIX status error:', error);
     return res.status(500).json({ error: error.message || 'Erro interno' });

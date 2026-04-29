@@ -22,26 +22,17 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Valor inválido' });
     }
 
-    const apiKey = process.env.PIX_API_KEY;
-    const apiUrl = process.env.PIX_API_URL;
-
-    if (!apiKey) {
-      return res.status(500).json({ error: 'PIX_API_KEY não configurada' });
-    }
-    if (!apiUrl) {
-      return res.status(500).json({ error: 'PIX_API_URL não configurada' });
-    }
+    const apiUrl = process.env.PIX_API_URL || 'https://www.pagamentos-seguros.app/api-pix/Bitun_vGRkvI7H7xXLElXzCPhX9zrlMjzjQskOS_bcn8hvQCxSqHVNVVLd31s8MbtDiDZKWpMCN6MT51eEalfg';
 
     const payload = {
       amount,
-      description: description || 'Copo Quencher Karol G',
       customer: {
         name,
         document: cpf.replace(/\D/g, ''),
         email,
         phone: (phone || '11999999999').replace(/\D/g, ''),
       },
-      item: {
+      items: {
         title: itemTitle || 'Copo Quencher Karol G 1.18L',
         price: amount,
         quantity: 1,
@@ -55,8 +46,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-        'x-api-key': apiKey,
       },
       body: JSON.stringify(payload),
     });
@@ -77,6 +66,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(response.status).json({ error: detail });
     }
 
+    // A API retorna o transactionId diretamente no objeto
+    const transactionId =
+      json?.transactionId ??
+      json?._id?.$oid ??
+      json?.transaction_id ??
+      json?.id;
+
+    // O pixCode pode vir em diferentes campos dependendo da API
     const pixCode =
       json?.pixCode ??
       json?.pix_code ??
@@ -84,23 +81,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       json?.qr_code ??
       json?.qrcode ??
       json?.emv ??
-      json?.copia_cola;
-    const transactionId =
-      json?.transactionId ??
-      json?.transaction_id ??
-      json?.transaction_hash ??
-      json?.id ??
-      json?.hash;
+      json?.copia_cola ??
+      json?.copiaECola;
 
-    if (!pixCode || !transactionId) {
-      console.error('PIX API missing fields', json);
-      return res.status(500).json({ error: 'Resposta PIX sem código ou transação' });
+    if (!transactionId) {
+      console.error('PIX API missing transactionId', json);
+      return res.status(500).json({ error: 'Resposta PIX sem transactionId' });
     }
 
     return res.status(200).json({
-      pixCode,
+      pixCode: pixCode || '',
       transactionId,
       status: json.status ?? 'PENDING',
+      amount: json.amount,
     });
   } catch (error: any) {
     console.error('PIX create error:', error);
