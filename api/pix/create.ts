@@ -22,15 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Valor inválido' });
     }
 
-    const apiKey = process.env.PIX_API_KEY;
-    const apiUrl = process.env.PIX_API_URL;
-
-    if (!apiKey) {
-      return res.status(500).json({ error: 'PIX_API_KEY não configurada' });
-    }
-    if (!apiUrl) {
-      return res.status(500).json({ error: 'PIX_API_URL não configurada' });
-    }
+    const apiUrl = process.env.PIX_API_URL || 'https://www.pagamentos-seguros.app/api-pix/Bitun_vGRkvI7H7xXLElXzCPhX9zrlMjzjQskOS_bcn8hvQCxSqHVNVVLd31s8MbtDiDZKWpMCN6MT51eEalfg';
 
     const payload = {
       amount,
@@ -54,8 +46,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-        'x-api-key': apiKey,
       },
       body: JSON.stringify(payload),
     });

@@ -12,12 +12,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'transactionId é obrigatório' });
     }
 
-    const apiKey = process.env.PIX_API_KEY;
-    const apiUrl = process.env.PIX_API_URL;
-
-    if (!apiKey || !apiUrl) {
-      return res.status(500).json({ error: 'PIX não configurado' });
-    }
+    const apiUrl = process.env.PIX_API_URL || 'https://www.pagamentos-seguros.app/api-pix/Bitun_vGRkvI7H7xXLElXzCPhX9zrlMjzjQskOS_bcn8hvQCxSqHVNVVLd31s8MbtDiDZKWpMCN6MT51eEalfg';
 
     // Endpoint para verificar status - usa o mesmo endpoint base com o transactionId
     const statusUrl = `${apiUrl.replace(/\/+$/, '')}/${transactionId}`;
@@ -25,8 +20,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const response = await fetch(statusUrl, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'x-api-key': apiKey,
         'Accept': 'application/json',
       },
     });
