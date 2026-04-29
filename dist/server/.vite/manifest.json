@@ -1,0 +1,152 @@
+{
+  "%23tanstack-start-plugin-adapters": {
+    "file": "assets/__23tanstack-start-plugin-adapters-Cwee5PKy.js",
+    "name": "__23tanstack-start-plugin-adapters",
+    "src": "%23tanstack-start-plugin-adapters",
+    "isDynamicEntry": true
+  },
+  "/vercel/share/v0-project/src/styles.css": {
+    "file": "assets/styles-FQWwuQKt.css",
+    "src": "/vercel/share/v0-project/src/styles.css"
+  },
+  "_types-BoWyrJuk.js": {
+    "file": "assets/types-BoWyrJuk.js",
+    "name": "types"
+  },
+  "_worker-entry-PKSq54oJ.js": {
+    "file": "assets/worker-entry-PKSq54oJ.js",
+    "name": "worker-entry",
+    "dynamicImports": [
+      "tanstack-start-manifest:v",
+      "src/server/pix.functions.ts?tss-serverfn-split",
+      "src/server/pix.functions.ts?tss-serverfn-split",
+      "src/router.tsx",
+      "node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts",
+      "%23tanstack-start-plugin-adapters"
+    ]
+  },
+  "node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts": {
+    "file": "assets/start-HYkvq4Ni.js",
+    "name": "start",
+    "src": "node_modules/@tanstack/react-start/dist/plugin/default-entry/start.ts",
+    "isDynamicEntry": true
+  },
+  "src/assets/correios-logo.png": {
+    "file": "assets/correios-logo-BIjpth8t.png",
+    "src": "src/assets/correios-logo.png"
+  },
+  "src/assets/karolg/karolg-closeup.webp": {
+    "file": "assets/karolg-closeup-D-QYbUQD.webp",
+    "src": "src/assets/karolg/karolg-closeup.webp"
+  },
+  "src/assets/karolg/karolg-detail.webp": {
+    "file": "assets/karolg-detail-Cu3VBzC3.webp",
+    "src": "src/assets/karolg/karolg-detail.webp"
+  },
+  "src/assets/karolg/karolg-hero-back.webp": {
+    "file": "assets/karolg-hero-back-Z4v8OYDH.webp",
+    "src": "src/assets/karolg/karolg-hero-back.webp"
+  },
+  "src/assets/karolg/quencher-karolg-2.png": {
+    "file": "assets/quencher-karolg-2-C5jgFlpm.png",
+    "src": "src/assets/karolg/quencher-karolg-2.png"
+  },
+  "src/assets/karolg/quencher-karolg-3.png": {
+    "file": "assets/quencher-karolg-3-CnbbcKHV.png",
+    "src": "src/assets/karolg/quencher-karolg-3.png"
+  },
+  "src/assets/karolg/quencher-karolg-real.jpeg": {
+    "file": "assets/quencher-karolg-real-D_Mph8TF.jpeg",
+    "src": "src/assets/karolg/quencher-karolg-real.jpeg"
+  },
+  "src/assets/porto-seguro-popup-logo.png": {
+    "file": "assets/porto-seguro-popup-logo-CwvodmBh.png",
+    "src": "src/assets/porto-seguro-popup-logo.png"
+  },
+  "src/assets/sedex-logo.png": {
+    "file": "assets/sedex-logo-Bz4Sz_j0.png",
+    "src": "src/assets/sedex-logo.png"
+  },
+  "src/assets/stanley-brand-logo.png": {
+    "file": "assets/stanley-brand-logo-pAmLxwwv.png",
+    "src": "src/assets/stanley-brand-logo.png"
+  },
+  "src/assets/testimonial-stanley-1.png": {
+    "file": "assets/testimonial-stanley-1-DImQdW3k.png",
+    "src": "src/assets/testimonial-stanley-1.png"
+  },
+  "src/assets/testimonial-stanley-2.jpeg": {
+    "file": "assets/testimonial-stanley-2-DVCMXqC7.jpeg",
+    "src": "src/assets/testimonial-stanley-2.jpeg"
+  },
+  "src/assets/testimonial-stanley-3.jpeg": {
+    "file": "assets/testimonial-stanley-3-B8oRcxX_.jpeg",
+    "src": "src/assets/testimonial-stanley-3.jpeg"
+  },
+  "src/router.tsx": {
+    "file": "assets/router-BnjnSmd3.js",
+    "name": "router",
+    "src": "src/router.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-PKSq54oJ.js"
+    ],
+    "dynamicImports": [
+      "src/routes/index.tsx?tsr-split=component"
+    ],
+    "assets": [
+      "assets/styles-FQWwuQKt.css"
+    ]
+  },
+  "src/routes/index.tsx?tsr-split=component": {
+    "file": "assets/index-MThfr0Zt.js",
+    "name": "index",
+    "src": "src/routes/index.tsx?tsr-split=component",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-PKSq54oJ.js",
+      "src/router.tsx",
+      "_types-BoWyrJuk.js"
+    ],
+    "assets": [
+      "assets/stanley-brand-logo-pAmLxwwv.png",
+      "assets/testimonial-stanley-1-DImQdW3k.png",
+      "assets/testimonial-stanley-2-DVCMXqC7.jpeg",
+      "assets/testimonial-stanley-3-B8oRcxX_.jpeg",
+      "assets/quencher-karolg-real-D_Mph8TF.jpeg",
+      "assets/quencher-karolg-2-C5jgFlpm.png",
+      "assets/quencher-karolg-3-CnbbcKHV.png",
+      "assets/karolg-hero-back-Z4v8OYDH.webp",
+      "assets/karolg-closeup-D-QYbUQD.webp",
+      "assets/karolg-detail-Cu3VBzC3.webp",
+      "assets/correios-logo-BIjpth8t.png",
+      "assets/sedex-logo-Bz4Sz_j0.png",
+      "assets/porto-seguro-popup-logo-CwvodmBh.png"
+    ]
+  },
+  "src/server/pix.functions.ts?tss-serverfn-split": {
+    "file": "assets/pix.functions-BI_cbvRf.js",
+    "name": "pix.functions",
+    "src": "src/server/pix.functions.ts?tss-serverfn-split",
+    "isDynamicEntry": true,
+    "imports": [
+      "_worker-entry-PKSq54oJ.js",
+      "_types-BoWyrJuk.js"
+    ]
+  },
+  "tanstack-start-manifest:v": {
+    "file": "assets/_tanstack-start-manifest_v-BiPQ87hF.js",
+    "name": "_tanstack-start-manifest_v",
+    "src": "tanstack-start-manifest:v",
+    "isDynamicEntry": true
+  },
+  "virtual:cloudflare/worker-entry": {
+    "file": "index.js",
+    "name": "index",
+    "src": "virtual:cloudflare/worker-entry",
+    "isEntry": true,
+    "imports": [
+      "_worker-entry-PKSq54oJ.js"
+    ]
+  }
+}

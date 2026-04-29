@@ -39,8 +39,8 @@ export const Route = createRootRoute({
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Pesquisa de Satisfação Stanley 2026 – Campanha Oficial" },
       { name: "twitter:description", content: "Responda à nossa pesquisa oficial de 2026 e verifique sua elegibilidade para resgatar um Copo Quencher 1.18L. Oferta limitada por região enquanto durarem os est" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/iTODGn9dsqZoeAoUfDIJpZwiX1l1/social-images/social-1777414413100-KarolG_2026_Desktop_PDP_1x1-04.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/iTODGn9dsqZoeAoUfDIJpZwiX1l1/social-images/social-1777414413100-KarolG_2026_Desktop_PDP_1x1-04.webp" },
+      { property: "og:image", content: "https://hospedagem-sandy.vercel.app/og-quencher-karolg.jpg" },
+      { name: "twitter:image", content: "https://hospedagem-sandy.vercel.app/og-quencher-karolg.jpg" },
     ],
     links: [
       {
