@@ -3,7 +3,7 @@ import { Copy, Check, QrCode, Loader2, AlertCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { CountdownTimer } from "./CountdownTimer";
-import { createPixCharge, checkPixStatus } from "@/server/pix.functions";
+import { createPixCharge, checkPixStatus } from "@/services/pix";
 
 
 type Props = {
@@ -32,15 +32,13 @@ export function PixStep({ name, email, cpf, amountInCents = 1976, itemTitle = "F
         setLoading(true);
         setError(null);
         const res = await createPixCharge({
-          data: {
-            name,
-            email,
-            cpf,
-            amount: amountInCents,
-            description: "Pagamento do frete - Campanha Stanley",
-            itemTitle,
-            utm: typeof window !== "undefined" ? window.location.search.replace(/^\?/, "") : "",
-          },
+          name,
+          email,
+          cpf,
+          amount: amountInCents,
+          description: "Pagamento do frete - Campanha Stanley",
+          itemTitle,
+          utm: typeof window !== "undefined" ? window.location.search.replace(/^\?/, "") : "",
         });
         
         if (!mounted) return;
@@ -73,7 +71,7 @@ export function PixStep({ name, email, cpf, amountInCents = 1976, itemTitle = "F
     if (!transactionId || status === "COMPLETED") return;
     const interval = setInterval(async () => {
       try {
-        const r = await checkPixStatus({ data: { transactionId } });
+        const r = await checkPixStatus(transactionId);
         setStatus(r.status);
         if (r.status === "COMPLETED") clearInterval(interval);
       } catch {}
