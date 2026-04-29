@@ -3,7 +3,7 @@ import { Copy, Check, QrCode, Loader2, AlertCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 import { CountdownTimer } from "./CountdownTimer";
-import { createPixCharge, checkPixStatus } from "@/server/pix.functions";
+
 
 type Props = {
   name: string;
@@ -30,8 +30,10 @@ export function PixStep({ name, email, cpf, amountInCents = 1976, itemTitle = "F
       try {
         setLoading(true);
         setError(null);
-        const res = await createPixCharge({
-          data: {
+        const response = await fetch('/api/pix/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             name,
             email,
             cpf,
@@ -39,8 +41,13 @@ export function PixStep({ name, email, cpf, amountInCents = 1976, itemTitle = "F
             description: "Pagamento do frete - Campanha Stanley",
             itemTitle,
             utm: typeof window !== "undefined" ? window.location.search.replace(/^\?/, "") : "",
-          },
+          }),
         });
+        if (!response.ok) {
+          const err = await response.json();
+          throw new Error(err.error || 'Erro ao gerar PIX');
+        }
+        const res = await response.json();
         if (!mounted) return;
         setPixCode(res.pixCode);
         setTransactionId(res.transactionId);
@@ -61,9 +68,16 @@ export function PixStep({ name, email, cpf, amountInCents = 1976, itemTitle = "F
     if (!transactionId || status === "COMPLETED") return;
     const interval = setInterval(async () => {
       try {
-        const r = await checkPixStatus({ data: { transactionId } });
-        setStatus(r.status);
-        if (r.status === "COMPLETED") clearInterval(interval);
+        const response = await fetch('/api/pix/status', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ transactionId }),
+        });
+        if (response.ok) {
+          const r = await response.json();
+          setStatus(r.status);
+          if (r.status === "COMPLETED") clearInterval(interval);
+        }
       } catch {}
     }, 5000);
     return () => {
