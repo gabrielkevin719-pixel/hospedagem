@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createAPIFileRoute } from "@tanstack/react-start/api";
 import { z } from "zod";
 
 const corsHeaders = {
@@ -41,52 +41,48 @@ function jsonResponse(body: unknown, init?: ResponseInit) {
   });
 }
 
-export const Route = createFileRoute("/api/public/webhooks/pix")({
-  server: {
-    handlers: {
-      OPTIONS: async () => new Response(null, { status: 204, headers: corsHeaders }),
-      POST: async ({ request }) => {
-        try {
-          const apiKey = process.env.PIX_API_KEY;
-          const authHeader = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
-          const headerApiKey = request.headers.get("x-api-key");
+export const APIRoute = createAPIFileRoute("/api/public/webhooks/pix")({
+  OPTIONS: async () => new Response(null, { status: 204, headers: corsHeaders }),
+  POST: async ({ request }) => {
+    try {
+      const apiKey = process.env.PIX_API_KEY;
+      const authHeader = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
+      const headerApiKey = request.headers.get("x-api-key");
 
-          if (!apiKey || (authHeader !== apiKey && headerApiKey !== apiKey)) {
-            return jsonResponse(
-              { success: false, error: "Webhook PIX não autorizado" },
-              { status: 401 },
-            );
-          }
+      if (!apiKey || (authHeader !== apiKey && headerApiKey !== apiKey)) {
+        return jsonResponse(
+          { success: false, error: "Webhook PIX não autorizado" },
+          { status: 401 },
+        );
+      }
 
-          const rawBody = await request.json();
-          const parsed = PixWebhookSchema.safeParse(rawBody);
+      const rawBody = await request.json();
+      const parsed = PixWebhookSchema.safeParse(rawBody);
 
-          if (!parsed.success) {
-            return jsonResponse(
-              { success: false, error: "Payload PIX inválido", details: parsed.error.flatten() },
-              { status: 400 },
-            );
-          }
+      if (!parsed.success) {
+        return jsonResponse(
+          { success: false, error: "Payload PIX inválido", details: parsed.error.flatten() },
+          { status: 400 },
+        );
+      }
 
-          const payload = parsed.data;
-          const transactionHash = payload.transaction_hash ?? payload.transactionId;
+      const payload = parsed.data;
+      const transactionHash = payload.transaction_hash ?? payload.transactionId;
 
-          if (!transactionHash) {
-            return jsonResponse(
-              { success: false, error: "Transação PIX não informada" },
-              { status: 400 },
-            );
-          }
+      if (!transactionHash) {
+        return jsonResponse(
+          { success: false, error: "Transação PIX não informada" },
+          { status: 400 },
+        );
+      }
 
-          return jsonResponse({ success: true, transactionHash, status: payload.status });
-        } catch (error) {
-          console.error("PIX webhook error", error);
-          return jsonResponse(
-            { success: false, error: "Erro ao processar webhook PIX" },
-            { status: 500 },
-          );
-        }
-      },
-    },
+      return jsonResponse({ success: true, transactionHash, status: payload.status });
+    } catch (error) {
+      console.error("PIX webhook error", error);
+      return jsonResponse(
+        { success: false, error: "Erro ao processar webhook PIX" },
+        { status: 500 },
+      );
+    }
   },
 });
