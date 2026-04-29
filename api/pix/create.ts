@@ -32,7 +32,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         email,
         phone: (phone || '11999999999').replace(/\D/g, ''),
       },
-      items: {
+      item: {
         title: itemTitle || 'Copo Quencher Karol G 1.18L',
         price: amount,
         quantity: 1,
